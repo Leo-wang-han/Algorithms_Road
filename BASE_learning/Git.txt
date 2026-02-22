@@ -1,0 +1,69 @@
+1.Git是开源的版本控制系统，常用于项目代码管理、文件管理等场景
+
+Git是存存储文件的仓库，集中存储在服务器，
+用户可上传文件到仓库，也可下载文件副本到本地磁盘，
+文件类型不受限制，可以是文本、图片、视频等文件；
+
+Git服务不是单纯地存储，她有版本管理的功能；
+Git服务会记录每一次修改历史，用户可翻看历史版本或还原文件；
+
+历史记录，可以随时翻看历史修改，复原不正确的修改
+跟踪记录，跟踪记录项目版本迭代过程，方便旧版本回滚、抽离
+保持文件一致性，帮助团队开发
+
+2.SVN和Git的区别
+SVN是集中式版本控制系统，所有版本数据都保存在服务器上，用户从服务器上获取最新版本，提交修改也是提交到服务器上；
+Git是分布式版本控制系统，所有版本数据都保存在本地，用户从服务器上获取最新版本，提交修改也是提交到本地，再推送到服务器上；
+
+Git,GitHub,GitLab,GitLab CI/CD
+Git:版本控制工具
+GitHub:基于Git的代码托管平台
+GitLab:基于Git的代码托管平台(私有化部署)
+GitLab CI/CD:基于GitLab的持续集成/持续交付平台
+
+3.Git操作
+    3.1新建、管理远程仓库（修改记录，分支，tag,权限）
+    3.2克隆、更新本地仓库副本
+    3.3提交、推送修改本地副本到远程仓库
+
+4.Git常用命令
+    git init:初始化本地仓库
+    示例：cd d:\Algorithms_Road && git init
+    git clone:克隆远程仓库到本地
+    示例：git clone https://github.com/user/Algorithms_Road.git d:\Algorithms_Road
+    git add:添加文件到暂存区
+    示例：cd d:\Algorithms_Road && git add .
+    git commit:提交暂存区文件到本地仓库
+    示例：cd d:\Algorithms_Road && git commit -m "Add initial files"
+    git push:将本地仓库文件推送到远程仓库
+    示例：cd d:\Algorithms_Road && git push origin main
+    git pull:将远程仓库文件拉取到本地仓库
+    示例：cd d:\Algorithms_Road && git pull origin main
+
+    git status:查看本地仓库状态
+    示例：cd d:\Algorithms_Road && git status
+    git log:查看本地仓库提交日志
+    示例：cd d:\Algorithms_Road && git log --oneline
+    git branch:查看本地仓库分支
+    示例：cd d:\Algorithms_Road && git branch
+    git tag:查看本地仓库标签
+    示例：cd d:\Algorithms_Road && git tag
+
+    git checkout:切换分支
+    示例：cd d:\Algorithms_Road && git checkout develop
+    git merge:合并分支
+    示例：cd d:\Algorithms_Road && git merge feature-branch
+    git checkout:切换标签
+    示例：cd d:\Algorithms_Road && git checkout v1.0
+    git reset:回滚提交
+    示例：cd d:\Algorithms_Road && git reset --hard HEAD~1
+    git revert:撤销提交
+    示例：cd d:\Algorithms_Road && git revert HEAD
+    git diff:查看文件差异
+    示例：cd d:\Algorithms_Road && git diff
+    git rm:删除文件
+    示例：cd d:\Algorithms_Road && git rm file.txt
+    git mv:移动文件
+    示例：cd d:\Algorithms_Road && git mv old.txt new.txt
+
+
