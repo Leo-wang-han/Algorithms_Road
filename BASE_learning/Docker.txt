@@ -1,2 +1,98 @@
 开始Docker相关学习
 
+1.docker工作原理
+
+    远程 镜像仓库(dockerhub)--->Docker(本地 镜像(模板)--->本地 容器（实例）)
+
+2.docker镜像
+
+    容器的模板，等同于安装电脑操作系统的光盘
+    镜像是只读的，不能修改
+    Linux镜像可以在Linux、Windows上运行，Windows镜像可以在windows的docker中使用
+
+    2.1镜像名称：dockerhub上镜像的名称，格式为：镜像名:tag版本  如mysql:5.7
+    2.2镜像仓库：dockerhub、阿里云、网易云等
+    2.3镜像相关命令
+        查看本地镜像：docker images
+        搜索镜像仓库：docker search 镜像名
+        下载镜像：docker pull 镜像名:tag版本
+        上传镜像：docker push 镜像名:tag版本
+        删除镜像：docker rmi 镜像名:tag版本
+        打包本地镜像：docker save -o 输出文件路径 镜像名:tag版本
+        导入本地镜像：docker load -i 输入文件路径
+        镜像构建：docker build -t 镜像名:tag版本 -f Dockerfile .
+
+3.docker容器
+    容器：真正运行的实例
+    隔离网络、文件、进程等环境
+    一个容器是一个沙盒环境，容器内的应用程序运行在独立的环境中，不会影响主机系统或其他容器
+    相对于虚拟机技术，启动更快，更轻量
+    但是容器是公用宿主机内存，CP物力资源的，多容器可能存在互相枪战资源的情况
+    3.1迁移容器到新服务器
+        容器-->打包成镜像-->上传到镜像仓库-->新服务器下载镜像-->新服务器创建容器
+    3.2容器相关命令
+        查看容器（包括未运行）：docker ps -a
+        创建容器：docker run -it --name 容器名 镜像名:tag版本
+        启动容器：docker start 容器名
+        停止容器：docker stop 容器名
+        删除容器：docker rm 容器名
+        进入容器：docker exec -it 容器名ID /bin/bash
+        容器日志：docker logs 容器名
+        容器打包成镜像：docker commit -a "作者信息" -m "log信息" 容器名ID 目标镜像名:tag版本
+        拷贝文件到容器：docker cp 本地文件路径 容器名ID:容器内文件路径
+        拷贝容器文件到宿主机：docker cp 容器名ID:容器内文件路径 宿主机文件路径
+        更新容器设置：docker update 容器ID 相关设置
+        -v挂载（持久化/共享文件，本地文件和容器内文件实时同步）宿主机目录到容器：docker run -v 宿主机目录:容器内目录 镜像名:tag版本
+
+4.容器创建的方式
+    4.1通过命令直接创建
+        docker run -it --name 容器名 镜像名:tag版本
+        示例：docker run -it --name mynginx nginx:latest
+
+    4.2通过dockerfile创建
+        4.2.1创建dockerfile文件
+            # 1.创建基础镜像（构建镜像的起点）
+            FROM python:3.9-slim
+            # 2.设置工作目录（容器内的路径）
+            WORKDIR /app
+            # 3.复制文件（将本地文件复制到容器内）
+            COPY requirements.txt
+            COPY app.py
+            # 4.安装依赖（运行命令安装所需的软件包）
+            RUN pip install --no-cache-dir -r requirements.txt
+            # 5.暴露端口（告诉Docker容器应用程序监听哪个端口）
+            EXPOSE 5000
+            # 6.设置环境变量（定义环境变量供容器内的应用程序使用）
+            ENV APP_ENV=production
+            #设置时区
+            ENV TZ=Asia/Shanghai
+            # 7.启动容器时运行的命令
+            CMD ["python", "app.py"]
+
+5.容器创建命令详解
+    5.1基础参数
+    docker run -d --name 容器名 镜像名:tag版本
+    docker run --help 查看全部参数
+
+    5.2挂载宿主机目录
+    docker run -v /hongme/workspace:/home/workspace 镜像名:tag版本
+    说明：将宿主机的/hongme/workspace目录挂载到容器内的/home/workspace目录，容器内对/home/workspace的修改会实时反映到宿主机的/hongme/workspace目录，反之亦然，实现数据持久化和共享
+
+    5.4端口设置
+        docker run -p 8080:80 镜像名:tag版本
+        说明：将宿主机的8080端口映射到容器的80端口，通过访问宿主机的8080端口即可访问容器内的服务
+
+    5.5环境变量设置
+        docker run -e ENV_VAR_NAME=value 镜像名:tag版本
+        说明：在容器内设置环境变量ENV_VAR_NAME的值为value，应用程序可以通过读取环境变量来获取配置信息
+        docker run -e TZ=Asia/Shanghai 镜像名:tag版本
+        说明：设置容器内的时区为上海时间，确保应用程序使用
+
+    5.6基础镜像
+        docker run ubuntu:latest
+        说明：使用ubuntu:latest作为基础镜像创建容器，容器内将运行一个最小化的Ubuntu系统，可以在容器内安装和运行各种应用程序
+    
+
+    5.7容器每次启动执行的命令
+        docker run --name mycontainer ubuntu:latest /bin/bash
+        说明：创建一个名为mycontainer的容器，使用ubuntu:latest镜像，并在容器启动时执行/bin/bash命令，进入交互式的bash shell环境
