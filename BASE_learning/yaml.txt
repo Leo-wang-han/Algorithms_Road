@@ -1,0 +1,99 @@
+YAML相关学习
+
+YAML是一种文本数据格式，常用于配置文件和数据交换。相比Json拥有更高的易读性
+YAML格式的数据：
+name: John Doe
+age: 30 # 注释
+address:
+  street: 123 Main St
+  city: Springfield
+  state: IL
+  zip: 62704
+skills:
+    - Python
+    - JavaScript
+    - Docker
+
+YAML的语法规则：
+- 使用缩进来表示层级关系
+- 使用冒号和空格来表示键值对
+- 使用短横线来表示列表项
+- 使用井号来表示注释
+
+1.对象、数组
+    1.1对象：键值对的集合，使用冒号和空格表示
+    : 表示键值对(冒号后必须有空格)
+
+    key: value
+    换行或缩进（空格）表示对象
+    nested_object:
+    key1: value1
+    key2: value2
+
+    1.2数组：有序的值的集合，使用短横线表示
+    list:
+    - item1
+    - item2
+    - item3
+
+    1.3嵌套对象和数组
+    list object:
+    - name1: item1
+      name2: tiem2
+    - name1: item3
+      name2: item4
+
+2.字符串、数字、布尔值、null
+    2.1字符串：可以使用单引号或双引号包裹，也可以直接写
+    双引号会解析转义字符，单引号会将内容原样输出
+    name: "John Doe"
+    name: 'John Doe'
+    name: John Doe
+
+    2.2数字：可以直接写
+    age: 30
+
+    2.3布尔值：使用true或false表示
+    is_student: true
+    is_employed: false
+    2.4null：使用null表示空值
+    middle_name: null
+    middle_name: ~
+
+3.其他类型及tag标签
+    3.1日期和时间：使用ISO 8601格式表示
+    时间类型
+    timestamp: 2024-06-01T12:00:00Z
+    二进制类型
+    birthday: 1990-01-01
+
+    3.2其他类型：可以使用tag标签表示
+    !!str 123
+    !!float 3.14
+    !!bool true
+
+4.注释
+    # 注释内容
+    key: value # 注释内容
+    
+    空行会被忽略，不会影响数据结构
+
+
+5.锚点/引用
+    &定义锚点，*引用锚点，复用数据
+    data base 1:
+    ip: 192.168.1.1
+    link:&base
+        port: 3306
+        username: root
+    data base 2: 
+        ip: 192.168.1.2
+        link: *base
+
+6.多文档分隔符
+    一个文件中可以包含多个文档，使用---分隔
+    name： John Doe
+    age: 30
+    ---
+    name: Jane Doe
+    age: 25
