@@ -1,50 +1,74 @@
 # 一.Mysql基础
 1.Mysql概述
-1.1数据库相关概念
-    数据库（DataBase，DB):存储数据的仓库，数据是有组织的进行存储
-    数据库管理系统（DataBase Management System,DBMS):操纵和管理数据库的软件系统
-    SQL（Structured Query Language）:操作关系型数据库的编程语言，定义了一套操作关系型数据库同意标准
+    1.1数据库相关概念
+        数据库(DataBase，DB):存储数据的仓库，数据是有组织的进行存储
+        数据库管理系统(DataBase Management System,DBMS):操纵和管理数据库的软件系统
+        SQL（Structured Query Language）:操作关系型数据库的编程语言，定义了一套操作关系型数据库同意标准
 
-    安装：
-        下载地址：https://dev.mysql.com/downloads/mysql/
-    启动、关闭：
-        net start mysql
-        net stop mysql
-    客户端连接：
-        mysql -h localhost -P 3306 -u root -p
+        安装：
+            下载地址：https://dev.mysql.com/downloads/mysql/
+        启动、关闭：
+            net start mysql
+            net stop mysql
+        客户端连接：
+            mysql -h localhost -P 3306 -u root -p
 
-    数据模型：
-        客户端--->【DBMS（sql语句）--->DB(创建、维护，多数据库)--->表（创建、维护，多表）-->行、列】
+        数据模型：
+            客户端--->【DBMS（sql语句）--->DB(创建、维护，多数据库)--->表（创建、维护，多表）-->行、列】
 
-1.2Mysql数据库
-    关系型数据库（Relational Database, RDB):数据以二维表格的形式进行组织和存储，表与表之间通过关系进行连接
-    非关系型数据库（Non-Relational Database, NoSQL):数据以键值对、文档、图等形式进行组织和存储，适用于大规模数据和高并发场景
+    1.2Mysql数据库
+        关系型数据库(Relational Database, RDB):数据以二维表格的形式进行组织和存储，表与表之间通过关系进行连接
+        非关系型数据库(Non-Relational Database, NoSQL):数据以键值对、文档、图等形式进行组织和存储，适用于大规模数据和高并发场景
 
 
 2.SQL
-    SQL通用语法
+    2.1SQL通用语法
+        1.SQL语句可以单行或多行书写，以分号结尾
+        2.可以使用空格和缩进来增强语句的可读性
+        3.MySQL数据库的SQL语句不区分大小写，关键字建议使用大写
+        4.注释：
+            单行注释：-- 注释内容 或 # 注释内容（mysql特有）
+            多行注释：/* 注释内容 */
 
-    SQL分类
-
+    2.2SQL分类:
     DDL（数据定义语言）:用来定义数据库对象（数据库、表、字段）
+    show ,create , alter , drop , truncate , rename等语句
 
     DML（数据操作语言）:用来对数据库表中的数据进行增删改查
+    INSERT , UPDATE , DELETE , SELECT等语句
 
     DQL（数据查询语言）:用来查询数据库中表中的数据
+    SELECT, FROM , WHERE , GROUP BY , HAVING , ORDER BY等语句
 
     DCL（数据控制语言）:用来定义数据库的访问权限和安全级别，以及监控数据库的运行情况
-
+    GRANT , REVOKE , SHOW GRANTS等语句
 
 
 
 3.函数
+    3.1相关概念
+        函数(Function):一段预定义的代码块，可以接受输入参数并返回一个结果，常用于数据处理和计算
+        内置函数(Built-in Function):数据库系统预定义的函数，可以直接使用，无需用户定义
+        用户自定义函数(User-Defined Function, UDF):由用户编写的函数，可以根据特定需求进行定义和使用
 
-
+    3.2常用函数
+        字符串函数:用于处理字符串数据的函数，如CONCAT()、SUBSTRING()、LENGTH()、UPPER()、LOWER()、TRIM()、REPLACE()
+        数学函数:用于进行数学计算的函数，如ABS()、ROUND()、CEIL()、RAND()、POWER()
+        日期函数:用于处理日期和时间数据的函数，如CURDATE()、CURTIME()、NOW()、YEAR()、MONTH()、DAY()、DATE_ADD()、DATE_SUB()、DATEDIFF()
+        流程函数:用于控制SQL语句执行流程的函数，如IF()、IFNULL()、CASE WHEN等
 
 
 4.约束
-
-
+    4.1相关概念
+        约束(Constraint):用于限制数据库表中数据的规则和条件，
+        目的：确保数据的完整性和一致性
+        分类：
+        主键约束(Primary Key Constraint):唯一标识表中的每一行数据，不能重复且不能为空
+        外键约束(Foreign Key Constraint):用于建立表与表之间的关系，确保引用的数据存在于另一个表中
+        唯一约束(Unique Constraint):确保列中的值唯一，可以有多个唯一约束，但只能有一个主键约束
+        非空约束(Not Null Constraint):确保列中的值不能为空
+        默认约束(Default Constraint):为列指定默认值，当插入数据时如果没有提供该列的值，则使用默认值
+        检查约束(Check Constraint):用于限制列中的值必须满足特定条件
 
 
 5.多表查询
